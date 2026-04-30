@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conectux — Cotización Digital para Odontólogos</title>
+<link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ── BRAND TOKENS ─────────────────────────────────────────── */
+  :root {
+    --noir:    #111111;
+    --ash:     #E8E8E8;
+    --purple:  #A100FF;
+    --purple2: #C040FF;
+    --white:   #FFFFFF;
+    --mid:     #1C1C1C;
+    --mid2:    #252525;
+  }
+
+  /* ── RESET ───────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--white);
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TYPOGRAPHY ──────────────────────────────────────────── */
+  .brand-title {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-transform: lowercase;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  /* ── LAYOUT ──────────────────────────────────────────────── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── HEADER ──────────────────────────────────────────────── */
+  header {
+    padding: 40px 0 0;
+    position: relative;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logo-name {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: var(--white);
+    text-transform: lowercase;
+  }
+
+  .logo-name span {
+    color: var(--purple);
+  }
+
+  .tag-cotizacion {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    padding: 72px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -120px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(161,0,255,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+    max-width: 700px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--purple);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: #999;
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: var(--purple2);
+    transform: translateY(-1px);
+  }
+
+  /* ── INTRO STRIP ─────────────────────────────────────────── */
+  .intro-strip {
+    background: var(--mid);
+    border-top: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
+    padding: 32px 0;
+  }
+
+  .intro-strip p {
+    font-size: 15px;
+    color: #bbb;
+    line-height: 1.8;
+    max-width: 700px;
+  }
+
+  .intro-strip strong {
+    color: var(--white);
+  }
+
+  /* ── SECTION TITLES ──────────────────────────────────────── */
+  .section {
+    padding: 72px 0;
+    border-bottom: 1px solid #1e1e1e;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 40px;
+  }
+
+  /* ── SERVICES GRID ───────────────────────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .service-card {
+    background: var(--mid);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--purple);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover {
+    border-color: #444;
+    transform: translateY(-2px);
+  }
+
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .service-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(161,0,255,0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+
+  .service-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+
+  .service-card p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.65;
+  }
+
+  /* ── TEAM GRID ───────────────────────────────────────────── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .team-card {
+    background: var(--mid2);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .team-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(161,0,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .team-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  .team-card span {
+    font-size: 11px;
+    color: #777;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── PRICING ─────────────────────────────────────────────── */
+  .pricing-section {
+    padding: 72px 0;
+    border-bottom: 1px solid #1e1e1e;
+  }
+
+  .pricing-card {
+    background: var(--mid);
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    max-width: 680px;
+  }
+
+  .pricing-card::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(161,0,255,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .pricing-badge {
+    display: inline-block;
+    background: rgba(161,0,255,0.15);
+    color: var(--purple);
+    border: 1px solid rgba(161,0,255,0.3);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .price-before {
+    font-size: 18px;
+    color: #555;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+
+  .price-now {
+    font-size: clamp(44px, 7vw, 68px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .price-now span {
+    font-size: 22px;
+    font-weight: 500;
+    color: #888;
+    letter-spacing: 0;
+  }
+
+  .price-sub {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 32px;
+  }
+
+  .price-divider {
+    border: none;
+    border-top: 1px solid #2a2a2a;
+    margin: 28px 0;
+  }
+
+  .contract-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contract-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #aaa;
+  }
+
+  .contract-item .check {
+    color: var(--purple);
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── CRM BLOCK ───────────────────────────────────────────── */
+  .crm-block {
+    background: linear-gradient(135deg, #1a0030 0%, var(--mid) 60%);
+    border: 1px solid rgba(161,0,255,0.3);
+    border-radius: 12px;
+    padding: 36px;
+    margin-top: 48px;
+  }
+
+  .crm-block h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .crm-block h3::before {
+    content: '⚡';
+  }
+
+  .crm-block p {
+    font-size: 14px;
+    color: #999;
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  /* ── STRATEGY SECTION ────────────────────────────────────── */
+  .strategy-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .pill {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--purple);
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    padding: 48px 0 32px;
+    border-top: 1px solid #1e1e1e;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-transform: lowercase;
+    color: var(--white);
+  }
+
+  .footer-logo em {
+    font-style: normal;
+    color: var(--purple);
+  }
+
+  .footer-contact a {
+    color: var(--purple);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    color: #444;
+    padding-top: 20px;
+    border-top: 1px solid #1e1e1e;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ── DIVIDER LINE ────────────────────────────────────────── */
+  .divider-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .divider-line hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #2a2a2a;
+  }
+
+  .divider-line span {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * { animation: fadeUp 0.6s ease both; }
+  .hero > *:nth-child(2) { animation-delay: 0.1s; }
+  .hero > *:nth-child(3) { animation-delay: 0.2s; }
+  .hero > *:nth-child(4) { animation-delay: 0.3s; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .container { padding: 0 20px; }
+    .pricing-card { padding: 28px 20px; }
+    .crm-block { padding: 24px 20px; }
+    .header-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo">
+        <!-- Logo SVG simplificado de Conectux -->
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="8" fill="#A100FF" fill-opacity="0.15"/>
+          <path d="M10 18C10 14.686 12.686 12 16 12H20C21.657 12 23 13.343 23 15C23 16.657 21.657 18 20 18H16C14.343 18 13 19.343 13 21C13 22.657 14.343 24 16 24H20C23.314 24 26 21.314 26 18" stroke="#A100FF" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-name"><span>co</span>nectux</span>
+      </div>
+      <span class="tag-cotizacion">Propuesta comercial</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-label">Especialmente para odontólogos</span>
+    <h1>Tu consultorio<br>merece <em>pacientes,</em><br>no solo seguidores.</h1>
+    <p class="hero-sub">
+      En Conectux diseñamos estrategias digitales con un solo objetivo: 
+      convertir tu presencia online en citas reales. Nos encargamos de 
+      todo, tú te enfocas en lo que haces mejor.
+    </p>
+    <a href="#precio" class="hero-cta">
+      Ver propuesta
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ── INTRO ──────────────────────────────────────────────────── -->
+<div class="intro-strip">
+  <div class="container">
+    <p>
+      Los odontólogos más exitosos no son necesariamente los mejores clínicamente — 
+      son los más <strong>visibles y confiables</strong> para sus pacientes potenciales. 
+      Con nuestra metodología orientada a ventas, <strong>medimos resultados mes a mes</strong> 
+      y ajustamos cada pieza de tu estrategia para maximizar el retorno.
+    </p>
+  </div>
+</div>
+
+<!-- ── SERVICIOS ──────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Lo que incluye</p>
+    <h2 class="section-title">Todo lo que necesitas<br>en un solo plan</h2>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3>4 Videos al mes</h3>
+        <p>Incluye grabación, edición profesional y publicación. Contenido pensado para generar confianza y atraer nuevos pacientes.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📸</div>
+        <h3>4 Posts al mes</h3>
+        <p>Antes y después, fotos de procesos o diseños gráficos. Cada publicación construye autoridad y conecta con tu audiencia.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧭</div>
+        <h3>Estrategia digital</h3>
+        <p>Diseñamos tu hoja de ruta mensual: qué publicar, cuándo, para quién y con qué objetivo de conversión.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📍</div>
+        <h3>Grabación mensual</h3>
+        <p>Sesión de grabación una vez al mes en tu consultorio para capturar contenido auténtico y de alta calidad.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📣</div>
+        <h3>Pauta digital</h3>
+        <p>Administración de tus anuncios con enfoque directo en ventas y captación de citas. No en likes, en pacientes.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Medición mes a mes</h3>
+        <p>Reporte mensual de resultados con métricas claras: alcance, leads, conversiones y retorno sobre la inversión.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EQUIPO ──────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Tu equipo dedicado</p>
+    <h2 class="section-title">Un equipo completo<br>trabajando por ti</h2>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">🧠</div>
+        <div>
+          <h4>Estratega Digital</h4>
+          <span>Dirección creativa y táctica</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">💬</div>
+        <div>
+          <h4>Community Manager</h4>
+          <span>Gestión de comunidad</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">🎨</div>
+        <div>
+          <h4>Diseñador Gráfico</h4>
+          <span>Identidad visual del consultorio</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">✂️</div>
+        <div>
+          <h4>Editor de Video</h4>
+          <span>Producción audiovisual</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRM -->
+    <div class="crm-block">
+      <h3 style="color: var(--purple);">CRM Conectux — Inteligencia Digital</h3>
+      <p>
+        Acceso completo a nuestra plataforma CRM con <strong style="color: var(--white);">flujos automáticos de seguimiento a pacientes</strong>, 
+        gestión de leads desde redes sociales y WhatsApp, e inteligencia digital que te 
+        permite saber exactamente de dónde viene cada nuevo paciente.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESTRATEGIA ─────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Metodología</p>
+    <h2 class="section-title">Estrategia enfocada<br>en ventas reales</h2>
+    <p style="color: #999; font-size: 15px; max-width: 580px; line-height: 1.8;">
+      Cada acción tiene un propósito comercial. Definimos contigo los servicios 
+      de mayor rentabilidad — ortodoncia, implantes, blanqueamiento — y construimos 
+      el embudo digital para atraer exactamente ese paciente.
+    </p>
+    <div class="strategy-pills">
+      <div class="pill"><span class="dot"></span>Diagnóstico inicial</div>
+      <div class="pill"><span class="dot"></span>Definición de servicios clave</div>
+      <div class="pill"><span class="dot"></span>Creación de contenido mensual</div>
+      <div class="pill"><span class="dot"></span>Activación de pauta</div>
+      <div class="pill"><span class="dot"></span>Gestión de leads en CRM</div>
+      <div class="pill"><span class="dot"></span>Reporte y optimización</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRECIO ──────────────────────────────────────────────────── -->
+<section class="pricing-section" id="precio">
+  <div class="container">
+    <p class="section-label">Inversión</p>
+    <h2 class="section-title" style="margin-bottom: 32px;">Una decisión sencilla</h2>
+
+    <div class="pricing-card">
+      <span class="pricing-badge">Plan completo — Odontología</span>
+      <p class="price-before">Antes: $5.000.000 / mes</p>
+      <p class="price-now">$2.000.000 <span>/ mes</span></p>
+      <p class="price-sub">* No incluye inversión en pauta publicitaria ni costos de mensajes WhatsApp</p>
+
+      <hr class="price-divider">
+
+      <div class="contract-details">
+        <div class="contract-item">
+          <span class="check">◆</span>
+          <span>Contrato por <strong style="color: var(--white);">6 meses</strong> sin cláusulas de permanencia</span>
+        </div>
+        <div class="contract-item">
+          <span class="check">◆</span>
+          <span><strong style="color: var(--white);">Renovación automática</strong> al finalizar el período</span>
+        </div>
+        <div class="contract-item">
+          <span class="check">◆</span>
+          <span>Resultados medibles desde el <strong style="color: var(--white);">primer mes</strong></span>
+        </div>
+        <div class="contract-item">
+          <span class="check">◆</span>
+          <span>Equipo completo dedicado a tu consultorio</span>
+        </div>
+        <div class="contract-item">
+          <span class="check">◆</span>
+          <span>Acceso al <strong style="color: var(--white);">CRM Conectux</strong> con flujos e inteligencia digital</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <p class="footer-logo"><em>co</em>nectux</p>
+          <p style="font-size: 12px; color: #555; margin-top: 4px;">Agencia de Marketing Digital</p>
+        </div>
+        <div class="footer-contact">
+          <p style="font-size: 13px; color: #777; margin-bottom: 6px;">¿Listo para comenzar?</p>
+          <a href="https://wa.me/57XXXXXXXXXX">Escríbenos por WhatsApp →</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Conectux Digital. Todos los derechos reservados.</span>
+        <span>Esta cotización es válida por 15 días hábiles.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
